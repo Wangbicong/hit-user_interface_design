@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,21 +38,20 @@
         <div class="col-md-6 col-md-offset-3">
             <h1>报名信息提交</h1>
             <hr/>
-            <form>
+            <form id="html5Form">
                 <div class="form-group">
-                    <label for="email">邮箱</label>
-                    <input type="email" class="form-control" id="email" placeholder="请输入您的邮箱">
+                    <label for="email">邮箱*</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="请输入您的邮箱">
                 </div>
                 <div class="form-group">
-                    <label for="password">密码</label>
-                    <input type="password" class="form-control" id="password" placeholder="请输入您的密码">
-                    <span class="help-block small">密码长度应为8~16位。</span>
+                    <label for="password">密码*</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入您的密码">
                 </div>
                 <div class="form-group">
-                    <label for="name">真实姓名</label>
-                    <input type="text" class="form-control" id="name" placeholder="请输入您的姓名">
+                    <label for="name">真实姓名*</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="请输入您的姓名">
                 </div>
-                <label>性别</label>
+                <label>性别*</label>
                 <div class="form-group">
                     <label class="radio-inline">
                         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked> 男
@@ -61,11 +61,11 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="birthday">出生日期</label>
-                    <input type="date" class="form-control" id="birthday">
+                    <label for="birthday">出生日期*</label>
+                    <input type="date" class="form-control" id="birthday" name="birthday">
                 </div>
                 <div class="form-group">
-                    <label>学历</label>
+                    <label>学历*</label>
                     <select multiple class="form-control">
                         <option selected>本科</option>
                         <option>硕士</option>
@@ -74,10 +74,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="phone_number">手机号</label>
-                    <input type="text" class="form-control" id="phone_number" maxlength="11" value="1" placeholder="请输入您的手机号">
+                    <label for="phone_number">手机号*</label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" maxlength="11" value="1" placeholder="请输入您的手机号">
                 </div>
-                <label>擅长方向</label>
+                <label>擅长方向*</label>
                 <div class="form-group">
                     <label class="checkbox-inline">
                         <input type="checkbox" id="inlineCheckbox1" value="option1"> Android
@@ -100,16 +100,16 @@
                 </div>
                 <div class="form-group">
                     <label>个人简介</label>
-                    <textarea class="form-control" rows="6" placeholder="您可以用任何您喜欢的方式进行自我介绍。"></textarea>
+                    <textarea class="form-control" rows="6" name="personal_info" placeholder="您可以用任何您喜欢的方式进行自我介绍。"></textarea>
                     <span class="help-block small">请输入200字以上。</span>
                 </div>
                 <div class="form-group">
                     <label>项目简介</label>
-                    <textarea class="form-control" rows="6" placeholder="主要从项目背景、技术架构和自己承担的职责等方面进行介绍。"></textarea>
+                    <textarea class="form-control" rows="6" name="project_info" placeholder="主要从项目背景、技术架构和自己承担的职责等方面进行介绍。"></textarea>
                     <span class="help-block small">请输入200字以上。</span>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" onclick=onNextButton()>确认</button>
                 </form>
+                <button class="btn btn-primary btn-block" onclick="onNextButton()">确认</button>
         </div>
     </div>
 </div>
@@ -144,11 +144,15 @@
     </div>
 </div>
 
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 
 <script src="js/main.js"></script>
+<script src="js/validation.js"></script>
+
 </body>
 </html>

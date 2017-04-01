@@ -1,3 +1,7 @@
+/**
+ * Created by wangbicong on 2017/4/1.
+ */
+
 function onNextButton() {
     var isChecked = true;
     if (isChecked){
@@ -9,7 +13,6 @@ function onNextButton() {
 }
 
 function onCommitButton(){
-    console.log($('#processBar').css);
     $('#processBar').css("width", "100%");
     setTimeout(function(){
         $('#processBar').html("提交成功，1秒后关闭窗口");
@@ -19,3 +22,4 @@ function onCommitButton(){
         }, 1000);
     }, 1000);
 }
+
