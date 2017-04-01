@@ -3,12 +3,12 @@
  */
 
 function onNextButton() {
-    var isChecked = true;
+    var isChecked = $("#html5Form").data("bootstrapValidator").isValid();
     if (isChecked){
         $('#processBar').css("width", "0%");
         $('#nextModal').modal();
     }else{
-
+        $("#html5Form").data("bootstrapValidator").validate();
     }
 }
 
@@ -21,5 +21,17 @@ function onCommitButton(){
             window.location.reload();
         }, 1000);
     }, 1000);
+}
+
+var flag = 1;
+
+function onPasswordButton() {
+    if( flag === 1 ){
+        $("#password").attr("type","text");
+        flag = 0;
+    }else{
+        $("#password").attr("type","password");
+        flag = 1;
+    }
 }
 

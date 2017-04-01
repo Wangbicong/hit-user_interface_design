@@ -45,7 +45,12 @@
                 </div>
                 <div class="form-group">
                     <label for="password">密码*</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入您的密码">
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入您的密码">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" style="padding-right: 30px" type="button" onclick="onPasswordButton()">Show/Hide</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="name">真实姓名*</label>
@@ -80,33 +85,31 @@
                 <label>擅长方向*</label>
                 <div class="form-group">
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Android
+                        <input type="checkbox" id="inlineCheckbox1" name="skill" value="option1"> Android
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox2" value="option2"> HTML/CSS/JS
+                        <input type="checkbox" id="inlineCheckbox2" name="skill" value="option2"> HTML/CSS/JS
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox3" value="option3"> Java
+                        <input type="checkbox" id="inlineCheckbox3" name="skill"value="option3"> Java
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox4" value="option4"> PHP
+                        <input type="checkbox" id="inlineCheckbox4" name="skill" value="option4"> PHP
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox5" value="option5"> Python
+                        <input type="checkbox" id="inlineCheckbox5" name="skill" value="option5"> Python
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox6" value="option6"> 其他
+                        <input type="checkbox" id="inlineCheckbox6" name="skill" value="option6"> 其他
                     </label>
                 </div>
                 <div class="form-group">
                     <label>个人简介</label>
-                    <textarea class="form-control" rows="6" name="personal_info" placeholder="您可以用任何您喜欢的方式进行自我介绍。"></textarea>
-                    <span class="help-block small">请输入200字以上。</span>
+                    <textarea class="form-control" rows="5" name="personal_info" placeholder="您可以用任何您喜欢的方式进行自我介绍。"></textarea>
                 </div>
                 <div class="form-group">
                     <label>项目简介</label>
-                    <textarea class="form-control" rows="6" name="project_info" placeholder="主要从项目背景、技术架构和自己承担的职责等方面进行介绍。"></textarea>
-                    <span class="help-block small">请输入200字以上。</span>
+                    <textarea class="form-control" rows="5" name="project_info" placeholder="主要从项目背景、技术架构和自己承担的职责等方面进行介绍。"></textarea>
                 </div>
                 </form>
                 <button class="btn btn-primary btn-block" onclick="onNextButton()">确认</button>
