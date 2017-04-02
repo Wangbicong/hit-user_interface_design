@@ -3,24 +3,28 @@
  */
 
 function onNextButton() {
+    $("#html5Form").data("bootstrapValidator").validate();
     var isChecked = $("#html5Form").data("bootstrapValidator").isValid();
+    console.log(isChecked);
     if (isChecked){
         $('#processBar').css("width", "0%");
-        $('#nextModal').modal();
-    }else{
-        $("#html5Form").data("bootstrapValidator").validate();
+        $('#nextModal').modal('toggle');
     }
 }
 
 function onCommitButton(){
     $('#processBar').css("width", "100%");
     setTimeout(function(){
-        $('#processBar').html("提交成功，1秒后关闭窗口");
+        $('#process-body').html("<small>提交成功，即将后关闭窗口。</small>");
         setTimeout(function () {
-            $('#processBar').html("正在关闭");
+            $('#process-body').html("<small>正在关闭...</small>");
             window.location.reload();
-        }, 1000);
-    }, 1000);
+        }, 2000);
+    }, 2000);
+}
+
+function closeModal() {
+
 }
 
 var flag = 1;
@@ -35,3 +39,4 @@ function onPasswordButton() {
     }
 }
 
+$('#email').focus();

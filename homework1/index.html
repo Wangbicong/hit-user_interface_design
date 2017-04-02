@@ -9,7 +9,9 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,11 +36,13 @@
 
 <div class="container-fluid">
 
-    <div class="row" style="margin-top:2%; margin-bottom: 3%">
+    <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h1>报名信息提交</h1>
+            <h2>报名信息提交</h2>
             <hr/>
-            <form id="html5Form">
+            <form id="html5Form" onkeypress="if(event.keyCode==13||event.which==13){onNextButton(); return false;}" onsubmit="function none() {
+
+            }">
                 <div class="form-group">
                     <label for="email">邮箱*</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="请输入您的邮箱">
@@ -48,7 +52,9 @@
                     <div class="input-group">
                         <input type="password" class="form-control" id="password" name="password" placeholder="请输入您的密码">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" style="padding-right: 30px" type="button" onclick="onPasswordButton()">Show/Hide</button>
+                            <button class="btn btn-default" type="button" onclick="onPasswordButton()">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -117,7 +123,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="nextModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="nextModal" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -126,17 +132,17 @@
                     是否确认提交？
                 </h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="process-body">
                 <div class="progress">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-info progress-bar-striped" id="processBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                        <div class="progress-bar progress-bar-striped active" id="processBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
 
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
+                <button type="button" id="cancel_button" class="btn btn-default" data-dismiss="modal">
                     取消 <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="btn btn-bg btn-primary" onclick="onCommitButton()">
@@ -153,6 +159,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="https://cdn.bootcss.com/flat-ui/2.3.0/js/flat-ui.min.js"></script>
 
 <script src="js/main.js"></script>
 <script src="js/validation.js"></script>

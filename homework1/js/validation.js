@@ -5,11 +5,6 @@
 $(function () {
     $('#html5Form').bootstrapValidator({
         message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
         fields: {
             email: {
                 message: '邮箱验证失败。',
@@ -85,7 +80,7 @@ $(function () {
                 validators: {
                     stringLength: {
                         max: 200,
-                        message: '个人简介长度不能超过200。'
+                        message: '项目简介长度不能超过200。'
                     }
                 }
             }
