@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>就是一个播放器</title>
+	<link rel="stylesheet" href="assets/css/player.css" media="screen" type="text/css">
+	<link rel="stylesheet" type="text/css" href="assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/libs/bootstrap/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/libs/bootstrap/bootstrap-theme.min.css"> -->
+
+	<script src="assets/js/player.js"></script>
+	<script src="assets/libs/jquery-2.1.1.min.js"></script>
+	<script src="assets/libs/bootstrap/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 解析查询MP3返回结果的Json数据
+		 * @param  {[type]} data api返回的数据
+		 * @return [type]        [description]
+		 */
+		function parseMp3Data(data) {
+
+			var albumCover = document.getElementById("album-cover");
+			var songName = document.getElementById("song-name");
+			var authorName = document.getElementById("author-name");
+			var bottomSongName = document.getElementById("bottom-song-name");
+			var bottomAlbumName = document.getElementById("bottom-album-name");
+
+			if (data.result == null) {
+				alert("没有查询到歌曲信息");
+				return;
+			}
+
+			var songs = data.result.songs;
+
+			//可以实现同时获取一个列表，此处每次查询1首，长度为1
+			for (var i = 0; i < songs.length; i++) {
+				//console.log("歌曲名:" + songs[i].name + ",作曲家:" + songs[i].artists[0].name + ",专辑名:" + songs[i].album.name +",专辑图片:" + songs[i].album.picUrl + ",歌曲地址:" + songs[i].audio);
+
+				var theSongName = songs[i].name;
+				var theArtistsName = songs[i].artists[0].name;
+				var theAlbumName = songs[i].album.name;
+				var thePicUrl = songs[i].album.picUrl;
+				var theSongUrl = songs[i].audio;
+
+				audio.src = theSongUrl;
+				albumCover.src = thePicUrl;
+				songName.innerHTML = theSongName
+				authorName.innerHTML = theArtistsName;
+				bottomSongName.innerHTML = "当前歌曲：" + theSongName;
+				bottomAlbumName.innerHTML = "专辑：" + theAlbumName;
+
+			};
+		};
+
+		/* 以下为拖拽相关，由于某些元素，播放器的主体拖拽实现不了。。。 */
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+
+		function drag(ev) {
+			ev.dataTransfer.setData("Text", ev.target.id);
+		}
+
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("Text");
+			ev.target.appendChild(document.getElementById(data));
+		}
+	</script>
+
+</head>
+
+<body background="assets/source/background/bg1.jpg">
+
+	<div id="whole-window">
+		<!-- <div ondrop="drop(event)" ondragover="allowDrop(event)" style="background:'#111111';height:500px">
+		</div> -->
+
+		<div class="header-panel col-md-8 col-md-offset-2">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<h1>UID 第二次作业</h1>
+				</div>
+			</div>
+		</div>
+		<div class="change-button col-md-1 col-md-offset-11">
+			<button class="btn btn-success" id="change-background">更换皮肤</button>
+		</div>
+
+		<!-- <div id="container" draggable="true" ondragstart="drag(event)"> -->
+		<div id="container">
+			<!-- 实现点击歌曲列表按钮后跳转到背面，展示列表-->
+			<!-- 显示图标 -->
+			<label class="to-back-label" for="to-back"><i class="fa fa-bars fa-2x"></i></label>
+			<!-- 跳转功能实现 -->
+			<input type="checkbox" id="to-back">
+
+			<!-- 进度条 -->
+			<canvas id="progress" width="320" height="320"></canvas>
+
+			<!-- 播放器主体（正面） -->
+			<div id="player">
+				<!-- 音乐媒体 -->
+				<audio id="audio"></audio>
+				<!-- 专辑封面 -->
+				<img id="album-cover" src="">
+				<!-- 歌词切换 -->
+				<label class="to-lyrics-label" for="to-lyrics"><i class="fa fa-arrows-alt fa-lg"></i></label>
+				<input type="checkbox" id="to-lyrics">
+
+				<div class="cover">
+
+					<!-- 歌曲播放控制 -->
+					<div class="controls">
+						<!-- 播放循环模式 -->
+						<button id="is-loop" title="循环播放"><i class="fa fa-retweet fa-lg" ></i></button>
+						<!-- 上一首 -->
+						<button id="backward" class="backward" title="上一首"><i class="fa fa-step-backward fa-lg"></i></button>
+						<!-- 播放／暂停 -->
+						<button id="playpause" class="play-pause" title="暂停"><i class="fa fa-play fa-lg"></i></button>
+						<!-- 下一首 -->
+						<button id="forward" class="forward" title="下一首"><i class="fa fa-step-forward fa-lg"></i></button>
+						<!-- 循环播放 -->
+						<button id="is-volume-off" title="静音"><i class="fa fa-volume-off fa-lg"></i></button>
+						<!-- 音量控制 -->
+						<div class="volume-box">
+							<input id="volume" name="volume" min="0" max="1" step="0.1" type="range">
+						</div>
+					</div>
+
+					<!-- 歌曲信息展示 -->
+					<div class="info">
+						<!-- 歌名 -->
+						<p class="song-name" id="song-name">Name</p>
+						<!-- 作者 -->
+						<p class="author" id="author-name">Name</p>
+					</div>
+
+					<!-- 歌词展示 -->
+					<div class="lyrics">
+						<p id="bottom-song-name">歌曲名:name</p>
+						<p id="bottom-album-name">专辑:name</p>
+
+						<p>I'm hurting baby</p>
+						<p>I'm broken down</p>
+						<p>I need your loving, loving</p>
+						<p>When I'm without you </p>
+						<p>I'm something weak</p>
+						<p>You got me begging</p>
+						<p>begging I'm on my knees</p>
+						<p>I don't wanna be needing your love</p>
+						<p>I just wanna be deep in your love</p>
+						<p>And it's killing me when you're away</p>
+						<p>Ooh baby, 'cause I really don't care where you are</p>
+						<p>I just wanna be there where you are</p>
+						<p>And I gotta get one little taste</p>
+						<p>Sugar Yes please</p>
+						<p>Would you come and put it down on me</p>
+						<p>I'm right here, 'cause I need</p>
+						<p>Little love and little sympathy</p>
+						<p>Yeah you show me good loving Make it alright</p>
+						<p>Need a little sweetness in my life</p>
+						<p>Sugar Yes please</p>
+						<p>Won't you come and put it down on me</p>
+						<p>My broken pieces You pick them up</p>
+						<p>Don't leave me hanging, hanging Come get me some</p>
+						<p>When I'm without ya I'm so insecure</p>
+						<p>You are the one thing, one thing I'm living for</p>
+
+					</div>
+					<!-- 辅助信息提示 -->
+					<p class="scroll">滚动查看歌词</p>
+				</div>
+				<!-- end of cover -->
+
+			</div>
+			<!-- end of player -->
+
+			<!-- 播放列表（背面） -->
+			<div id="flip-back">
+				<ul class="playlist" id="playlist">
+					<h3>播放列表</h3>
+					<li>1. Lost Stars</li>
+					<!-- 正在播放列表 -->
+					<li class="active icon-heart">2. Sugar</li>
+					<li>3. Shattered</li>
+				</ul>
+			</div>
+
+
+		</div>
+		<!-- end of container -->
+
+	</div>
+
+</body>
+
+</html>
