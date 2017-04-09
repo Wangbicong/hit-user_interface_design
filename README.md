@@ -15,6 +15,6 @@
 > 本程序是@dusz写的Web版音乐播放器。
 
  - `homework2/index.html`为主页。    
- - `homework2/doc`目录为作业相关文档、PS素材等。
+ - `homework2/doc`目录为作业相关文档等。
 
 ![homework1 demo](homework2/doc/ui.png)
