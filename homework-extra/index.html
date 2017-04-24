@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户界面设计 附加作业</title>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
+
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/flat-ui/2.3.0/js/flat-ui.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">用户界面设计 附加作业</a>
+        </div>
+        <div class="navbar-text navbar-right">
+            <a class="navbar-link" href="http://wangbicong.cn">王必聪</a>
+        </div>
+    </div>
+</nav>
+
+<div id="draggable1" style="position: absolute">
+    <span>表单1</span><input id="input1"/>
+</div>
+<!--<div id="draggable2" style="position: absolute">-->
+    <!--<span>表单2</span><input id="input2"/>-->
+<!--</div>-->
+<!--<div id="draggable3" style="position: absolute">-->
+    <!--<span>表单3</span><input id="input3"/>-->
+<!--</div>-->
+<!--<div id="draggable4" style="position: absolute">-->
+    <!--<span>表单4</span><input id="input4"/>-->
+<!--</div>-->
+<div>
+    <button class="btn btn-success" onclick="addNewChild()" style="float:right; margin-right: 80px">添加新的表单</button>
+</div>
+
+<div class="modal fade" tabindex="-1" id="nextModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>最多只能创建八个表单。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</body>
+</html>

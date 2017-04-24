@@ -1,3 +1,5 @@
 # IDE Config
 .idea
 hit-UID.iml
+
+*/.DS_Store
