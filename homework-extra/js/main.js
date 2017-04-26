@@ -34,6 +34,7 @@ var rDrag = {
     end: function (e) {
         e = rDrag.fixEvent(e);
         inputs[rDrag.o.id[rDrag.o.id.length-1]-1].focus();
+        currentFocus = parseInt(rDrag.o.id[rDrag.o.id.length-1]-1);
         rDrag.o = document.onmousemove = document.onmouseup = null;
     },
     fixEvent: function (e) {
@@ -78,16 +79,18 @@ function findNextFocus(keyCode) {
     }
     if (keyCode == 37) { //left
         // alert("left");
-        var thisLeft = lefts[currentFocus];
-        var nextFocus = currentFocus;
-        var minDis = 0.0;
-        var tmp;
-        for (var i = 0; i < count; i++) {
-            if (lefts[i] < thisLeft) {
-                tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
-                if (minDis == 0.0 || minDis > tmp) {
-                    minDis = tmp;
-                    nextFocus = i;
+        if(getCursortPosition(inputs[currentFocus]) == 0){
+            var thisLeft = lefts[currentFocus];
+            var nextFocus = currentFocus;
+            var minDis = 0.0;
+            var tmp;
+            for (var i = 0; i < count; i++) {
+                if (lefts[i] < thisLeft) {
+                    tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
+                    if (minDis == 0.0 || minDis > tmp) {
+                        minDis = tmp;
+                        nextFocus = i;
+                    }
                 }
             }
         }
@@ -107,16 +110,18 @@ function findNextFocus(keyCode) {
         }
     } else if (keyCode == 39) {//right
         // alert("right");
-        var thisLeft = lefts[currentFocus];
-        var nextFocus = currentFocus;
-        var minDis = 0.0;
-        var tmp;
-        for (var i = 0; i < count; i++) {
-            if (lefts[i] > thisLeft) {
-                tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
-                if (minDis == 0.0 || minDis > tmp) {
-                    minDis = tmp;
-                    nextFocus = i;
+        if (getCursortPosition(inputs[currentFocus]) == inputs[currentFocus].value.length){
+            var thisLeft = lefts[currentFocus];
+            var nextFocus = currentFocus;
+            var minDis = 0.0;
+            var tmp;
+            for (var i = 0; i < count; i++) {
+                if (lefts[i] > thisLeft) {
+                    tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
+                    if (minDis == 0.0 || minDis > tmp) {
+                        minDis = tmp;
+                        nextFocus = i;
+                    }
                 }
             }
         }
@@ -146,18 +151,61 @@ document.onkeydown = function (e) {
     }
 }
 
-function addNewChild() {
+function getCursortPosition (ctrl) {
+    var CaretPos = 0;   // IE Support
+    if (document.selection) {
+        ctrl.focus ();
+        var Sel = document.selection.createRange ();
+        Sel.moveStart ('character', -ctrl.value.length);
+        CaretPos = Sel.text.length;
+    }
+    // Firefox support
+    else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+        CaretPos = ctrl.selectionStart;
+    return (CaretPos);
+}
+
+function setCaretPosition(textDom, pos){
+    if(textDom.setSelectionRange) {
+        // IE Support
+        textDom.focus();
+        textDom.setSelectionRange(pos, pos);
+    }else if (textDom.createTextRange) {
+        // Firefox support
+        var range = textDom.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pos);
+        range.moveStart('character', pos);
+        range.select();
+    }
+}
+
+function addNewChild(mark) {
     if (count <= 7){
         count += 1;
         var newId = "draggable" + count;
         var newId2 = "input" + count;
-        var width = Math.random() * 200 + 70;
+        if (mark){
+            var width = Math.random() * 200 + 70;
+            var height = Math.random() * 50 + 40;
+        }else{
+            $("#html5Form").data("bootstrapValidator").validate();
+            if ($("#html5Form").data("bootstrapValidator").isValid()){
+                var width = $('#width').val();
+                var height = $('#height').val();
+                console.log(width);
+                console.log(height);
+            }else{
+                return;
+            }
+        }
         // var width = 194;
         // var newChild = document.createElement("<div id='"+newId+"' style='position: absolute'></div>");
         var newChild = document.createElement("div");
         newChild.id = newId;
         newChild.style.position = "absolute";
-        newChild.innerHTML = "<span>" + "表单" + newId2[newId2.length-1] + "</span><input id='" + newId2 + "' style='width:" + width + "px'/>";
+        newChild.innerHTML = "<span>" + "表单" + newId2[newId2.length-1] + "</span><input id='" + newId2 +
+            "' style='width:" + width + "px;"+ "height:" + height + "px" + "' />";
         document.body.appendChild(newChild);
         rDrag.init(newChild);
         inputs[count - 1] = document.getElementById(newId2);
@@ -170,17 +218,57 @@ function addNewChild() {
 
 window.onload = function () {
     dragable1 = document.getElementById('draggable1');
-    // dragable2 = document.getElementById('draggable2');
-    // dragable3 = document.getElementById('draggable3');
-    // dragable4 = document.getElementById('draggable4');
     rDrag.init(dragable1);
-    // rDrag.init(dragable2);
-    // rDrag.init(dragable3);
-    // rDrag.init(dragable4);
     inputs = new Array();
     inputs[0] = document.getElementById("input1");
     inputs[0].focus();
-    // inputs[1] = document.getElementById("input2");
-    // inputs[2] = document.getElementById("input3");
-    // inputs[3] = document.getElementById("input4");
-}
+};
+
+$(function () {
+    $('#html5Form').bootstrapValidator({
+        feedbackIcons: {
+            required: 'glyphicon glyphicon-asterisk requiredStar',
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            width: {
+                validators: {
+                    notEmpty: {
+                        message: '宽度不能为空。'
+                    },
+                    callback: {
+                        message: '宽度范围应为100~400。',
+                        callback: function(value, validator) {
+                            value = parseInt(value, 10);
+                            if (isNaN(value) | value > 400 | value < 100){
+                                return false
+                            }else{
+                                return true
+                            }
+                        }
+                    }
+                }
+            },
+            height: {
+                validators: {
+                    notEmpty: {
+                        message: '高度不能为空。'
+                    },
+                    callback: {
+                        message: '高度范围应为36~200。',
+                        callback: function(value, validator) {
+                            value = parseInt(value, 10);
+                            if (isNaN(value) | value > 200 | value < 36){
+                                return false
+                            }else{
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
