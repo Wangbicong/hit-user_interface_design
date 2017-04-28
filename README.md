@@ -17,7 +17,7 @@
  - `homework2/index.html`为主页。    
  - `homework2/doc`目录为作业相关文档等。
 
-![homework1 demo](homework2/doc/ui.png)
+![homework2 demo](homework2/doc/ui.png)
 
 ## Project3: 网页界面设计
 
@@ -25,3 +25,7 @@
 
 ## Project（附加）: 智能焦点跳转
 
+ - `homework-extra/index.html`为主页。    
+ - `homework-extra/js/focus_algorithm.js`为智能焦点函数实现。
+
+![homework demo](homework-extra/doc/ui.png)

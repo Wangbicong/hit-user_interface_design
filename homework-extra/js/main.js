@@ -38,116 +38,23 @@ var rDrag = {
         rDrag.o = document.onmousemove = document.onmouseup = null;
     },
     fixEvent: function (e) {
-        // if (!e) {
-        //     e = window.event;
-        //     e.target = e.srcElement;
-        //     e.layerX = e.offsetX;
-        //     e.layerY = e.offsetY;
-        // }
+        if (!e) {
+            e = window.event;
+            e.target = e.srcElement;
+            e.layerX = e.offsetX;
+            e.layerY = e.offsetY;
+        }
         return e;
     }
-}
-
-function getyAbsTop(obj) {
-    var top = obj.offsetTop;
-    while (obj.offsetParent != null) {
-        obj = obj.offsetParent;
-        top += obj.offsetTop;
-    }
-    return top;
-}
-
-function getyAbsLeft(obj) {
-    var l = obj.offsetLeft;
-    while (obj.offsetParent != null) {
-        obj = obj.offsetParent;
-        l += obj.offsetLeft;
-    }
-    return l;
-}
-
-function sqr(val) {
-    return val * val;
-}
-
-function findNextFocus(keyCode) {
-    var lefts = new Array();
-    var tops = new Array();
-    for (var i = 0; i < count; i++) {
-        lefts[i] = getyAbsLeft(inputs[i]);
-        tops[i] = getyAbsTop(inputs[i]);
-    }
-    if (keyCode == 37) { //left
-        // alert("left");
-        if(getCursortPosition(inputs[currentFocus]) == 0){
-            var thisLeft = lefts[currentFocus];
-            var nextFocus = currentFocus;
-            var minDis = 0.0;
-            var tmp;
-            for (var i = 0; i < count; i++) {
-                if (lefts[i] < thisLeft) {
-                    tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
-                    if (minDis == 0.0 || minDis > tmp) {
-                        minDis = tmp;
-                        nextFocus = i;
-                    }
-                }
-            }
-        }
-    } else if (keyCode == 38) {//up
-        // alert("up");
-        var nextFocus = currentFocus;
-        var minDis = 0.0;
-        var tmp;
-        for (var i = 0; i < count; i++) {
-            if (tops[i] < tops[currentFocus]) {
-                tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
-                if (minDis == 0.0 || minDis > tmp) {
-                    minDis = tmp;
-                    nextFocus = i;
-                }
-            }
-        }
-    } else if (keyCode == 39) {//right
-        // alert("right");
-        if (getCursortPosition(inputs[currentFocus]) == inputs[currentFocus].value.length){
-            var thisLeft = lefts[currentFocus];
-            var nextFocus = currentFocus;
-            var minDis = 0.0;
-            var tmp;
-            for (var i = 0; i < count; i++) {
-                if (lefts[i] > thisLeft) {
-                    tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
-                    if (minDis == 0.0 || minDis > tmp) {
-                        minDis = tmp;
-                        nextFocus = i;
-                    }
-                }
-            }
-        }
-    } else if (keyCode == 40 || keyCode == 13) {//down or enter
-        // alert("down or enter");
-        var nextFocus = currentFocus;
-        var minDis = 0.0;
-        var tmp;
-        for (var i = 0; i < count; i++) {
-            if (tops[i] > tops[currentFocus]) {
-                tmp = sqr(lefts[i] - lefts[currentFocus]) + sqr(tops[i] - tops[currentFocus]);
-                if (minDis == 0.0 || minDis > tmp) {
-                    minDis = tmp;
-                    nextFocus = i;
-                }
-            }
-        }
-    }
-    return nextFocus;
 }
 
 document.onkeydown = function (e) {
     if (e) {
         var nextFocus = findNextFocus(e.keyCode);
-        inputs[nextFocus].focus();
-        currentFocus = nextFocus;
+        if (nextFocus != -1){
+            inputs[nextFocus].focus();
+            currentFocus = nextFocus;
+        }
     }
 }
 
@@ -193,8 +100,6 @@ function addNewChild(mark) {
             if ($("#html5Form").data("bootstrapValidator").isValid()){
                 var width = $('#width').val();
                 var height = $('#height').val();
-                console.log(width);
-                console.log(height);
             }else{
                 return;
             }
@@ -203,7 +108,7 @@ function addNewChild(mark) {
         // var newChild = document.createElement("<div id='"+newId+"' style='position: absolute'></div>");
         var newChild = document.createElement("div");
         newChild.id = newId;
-        newChild.style.position = "absolute";
+        newChild.style.position = 'absolute';
         newChild.innerHTML = "<span>" + "表单" + newId2[newId2.length-1] + "</span><input id='" + newId2 +
             "' style='width:" + width + "px;"+ "height:" + height + "px" + "' />";
         document.body.appendChild(newChild);
